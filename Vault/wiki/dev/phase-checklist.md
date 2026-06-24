@@ -1,0 +1,197 @@
+# 30-Phase Implementation Checklist
+
+Each phase maps to a section of TASKS.md. Phases are ordered by dependency — do not skip ahead.
+
+---
+
+## Phase 0 — Strategy
+- [x] Fill out ICP document (business type, geography, size, pain point, WTP)
+- [x] Identify 50+ GBP listings without websites in target metro area
+- [x] Join 5–10 contractor Facebook groups; read for 30 min minimum
+- [x] Write niche-specific features list (emergency banner, service area, license number, reviews badge)
+- [x] Decide which 2–3 retention mechanisms go into v1
+- [x] Commit to target metro area for launch
+
+## Phase 1 — GitHub Accounts
+- [x] Create GitHub account and submit GitHub Education verification
+- [x] Generate Copilot fine-grained PAT (Copilot read-only)
+- [x] Create GitHub App (Onara Deployer): Contents R/W + Metadata R-only
+- [x] Create `onara-sites` repo (private)
+
+## Phase 2 — Service Accounts
+- [x] Create Google Cloud project (onara-prod): enable Places API (New), create restricted key
+- [x] Configure Google OAuth consent screen + create OAuth 2.0 client ID
+- [x] Create Supabase project
+- [x] Create Cloudflare account + configure Pages
+- [x] Create Resend account + verify sending domain
+- [x] Create Stripe account + create products (Free, Starter $12/mo, Pro $29/mo)
+- [x] Create Stripe webhook endpoint placeholder and save signing secret
+- [x] Install Ollama on PC
+- [x] Fill monthly Stripe price IDs into credentials
+- [ ] Stripe live mode payout setup (deferred to launch; does not block dev)
+
+## Phase 3 — Dev Environment (PC)
+
+- [x] Pull and verify current Ollama models: `qwen3.5:9b` primary and `gemma4:e4b` fallback
+- [x] Confirm Node.js installed (`v22.22.1`)
+- [x] Confirm Python 3.11+ installed (`Python 3.14.4`)
+- [ ] Install pnpm
+- [ ] Set up Cloudflare Tunnel (`cloudflared`) on the same host as FastAPI
+- [ ] Create `.env` files with all keys from Phases 1–2
+
+## Phase 4 — Server Environment
+- [ ] Set up FastAPI + cloudflared + PM2 on the mini PC or DigitalOcean Droplet after Phase 3 works locally; keep Ollama on the main PC over LAN
+- [ ] Configure PM2 for FastAPI auto-restart on crash
+
+## Phase 5 — Database Schema
+- [ ] Run migration: custom types → tables → indexes (see `wiki/data/migrations.md`)
+
+## Phase 6 — Database Security
+- [ ] Apply RLS policies for all 7 tables (see `wiki/data/rls-policies.md`)
+- [ ] Set up `handle_new_user` trigger (auto-create user profile on signup)
+- [ ] Set up project limit + revision tracking triggers (see `wiki/data/triggers.md`)
+- [ ] Configure pg_cron jobs (see `wiki/data/pg-cron-jobs.md`)
+
+## Phase 7 — Google OAuth
+- [ ] Configure Google OAuth in Supabase (client ID + secret)
+- [ ] Add test users to OAuth consent screen (required until app is published)
+- [ ] Build and test Google OAuth sign-in flow end-to-end
+
+## Phase 8 — Google Places Route
+- [ ] Build `/api/places/search` Next.js route (Text Search API)
+- [ ] Build `/api/places/confirm` route (save confirmed business)
+- [ ] Build business confirmation card UI (name, address, phone, hours, photo)
+- [ ] Handle missing fields (amber highlight + manual input fallback)
+
+## Phase 9 — Design System
+- [ ] Define Tailwind tokens (contractor vertical palette)
+- [ ] Build base components: Button, Card, Input, Badge
+- [ ] Migrate design reference from `Onara_Design/` into `Onara_Code/app/components/`
+
+## Phase 10 — Landing Page
+- [ ] Build niche-specific landing page (contractors copy from `wiki/content/landing-page.md`)
+- [ ] Add pricing section (Free / Starter / Pro with reverse trial messaging)
+- [ ] Add social proof section (placeholder until real testimonials)
+- [ ] Add 60-second demo video placeholder
+
+## Phase 11 — Auth Pages
+- [ ] Build sign-up page
+- [ ] Build login page
+- [ ] Implement Next.js middleware for route protection (`matcher` on `/dashboard/**`)
+
+## Phase 12 — Dashboard Shell
+- [ ] Build layout + sidebar navigation
+- [ ] Build My Sites list view (pulls from `/api/account`)
+
+## Phase 13 — Build Flow
+- [ ] 4-step flow: Search → Confirm → Style → Generate
+- [ ] Style preference UI (color palette chips, layout/tone options)
+
+## Phase 14 — Agent Progress UI
+- [ ] SSE connection to `/api/stream/:job_id`
+- [ ] Agent progress component (10 steps, live status per step)
+- [ ] Preview iframe (render HTML as it streams)
+- [ ] Status fallback route for non-SSE browsers (poll `/api/status` every 5s)
+
+## Phase 15 — FastAPI Server
+- [ ] Scaffold FastAPI project with project structure
+- [ ] Implement in-memory job queue with deduplication (reject duplicate `project_id`)
+- [ ] Expose `/pipeline/start`, `/pipeline/status/:job_id`, `/health` endpoints
+- [ ] Test Cloudflare Tunnel connection with Next.js
+
+## Phase 16 — AI Client Library
+- [ ] Build unified AI client (NIM, Ollama, Kimi, DeepSeek endpoints)
+- [ ] Implement Agent 6 model picker (plan-gated — see `wiki/ai_agents/models.md`)
+- [ ] Implement 429 retry logic with exponential backoff
+- [ ] Implement local model fallback when NIM fails
+
+## Phase 17 — RAG System
+- [ ] Set up ChromaDB at `./chroma_db`
+- [ ] Seed collection from `raw/10_rag_seed_content.md` (~60 patterns)
+- [ ] Implement metadata-filtered query (by business category + section type)
+- [x] Wire RAG into Agent 7 (Debugger) and Agent 9 (QA)
+
+## Phase 18 — Agents 1–3
+- [x] Agent 1: Business Analyst (z-ai/glm-5.1 → JSON spec)
+- [x] Agent 2: Content Writer (qwen3.5:9b → copy JSON) — parallel
+- [x] Agent 3: Style Agent (z-ai/glm-5.1 -> design tokens) — parallel with Agent 2
+- [x] Supervisor validation between each step
+
+## Phase 19 — Agents 4–5
+- [x] Agent 4: Planner (z-ai/glm-5.1 → component blueprint JSON)
+- [x] Agent 5: Prompt Engineer (z-ai/glm-5.1 → optimized code-gen prompt string)
+
+## Phase 20 — Agent 6
+- [x] Agent 6: Code Generator with plan-gated model picker
+- [x] Atomic component generation per Planner blueprint
+- [x] FILE_MARKER extraction with regex parser
+- [x] Stream partial output to preview iframe
+
+## Phase 21 — Agents 7–10
+- [x] Blackboard Supervisor: inspect blackboard outputs/errors and decide continue, rerun, route to debugger, or fail
+- [x] Agent 6 animation pass with lightweight CSS animations, `prefers-reduced-motion`, and mobile/performance validation
+- [x] RAG animation patterns for accessible motion and mobile-safe staggered reveals
+- [x] Agent 7: Debugger (z-ai/glm-5.1 → fixed HTML or PASS)
+- [x] Agent 8: SEO Agent (qwen3.5:9b → SEO-injected HTML)
+- [x] Agent 9: QA (z-ai/glm-5.1 → PASS or blocking issues JSON)
+- [x] Agent 10: Mobile (qwen3.5:9b → mobile-optimized HTML)
+- [ ] Full pipeline integration test end-to-end
+
+## Phase 22 — Deployment Pipeline
+Current actionable phase.
+- [x] HTML parser: extract final HTML from FILE_MARKER wrapper
+- [x] GitHub commit: push to `onara-sites/sites/{projectId}/index.html`
+- [x] Cloudflare Pages Direct Upload (create project if new, then deploy)
+- [ ] Supabase storage: save to `site-html` bucket
+- [ ] Update `projects` record with `public_url`, `status = 'live'`, `last_deployed_at`
+
+## Phase 23 — Revision System
+- [ ] Incremental component update logic (re-run from Agent 5 with revision instruction)
+- [ ] Revision counter decrement on submit (trigger handles Supabase write)
+- [ ] Retry button for failed jobs (no revision deducted)
+- [ ] Monthly reset verification
+
+## Phase 24 — Stripe Billing
+- [ ] Checkout session creation endpoint
+- [ ] Webhook handler: subscription lifecycle (created, updated, deleted, payment_failed)
+- [ ] Trial downgrade: verify pg_cron job runs daily + test downgrade manually
+
+## Phase 25 — Account Page
+- [ ] Plan display + usage meter (revisions used/remaining)
+- [ ] Upgrade CTA → triggers Stripe Checkout
+- [ ] Customer Portal link → Stripe-hosted portal
+- [ ] Plan gating: verify Agent 6 model picker reads user plan correctly
+
+## Phase 26 — Retention Features
+- [ ] GBP polling: cron job to check Google for hours/phone changes every 24h
+- [x] Google Reviews badge: weekly pull + embed on generated sites
+- [x] Lead email notification on contact form submit (Resend)
+
+## Phase 27 — Architecture Hardening
+- [x] Generated-site visual quality gate: GLM style routing, anti-generic layout QA, and professional composition checks
+- [x] Generated-site photo resolver: Google Places photo URLs, uploaded image support, and QA photo usage gate
+- [x] Generated-site Onara theme enforcement: paper/ink/terracotta tokens, Fraunces/Inter/mono typography, low-radius panels, and QA theme check
+- [ ] PM2 config: auto-restart FastAPI on crash, log to file
+- [ ] UptimeRobot: monitor `/health`, alert at 5-min downtime
+- [ ] AI blackboard reviewer: advisory-only model pass over blackboard outputs; deterministic supervisor remains final authority
+- [ ] PostHog analytics: instrument key events (see `wiki/operations/monitoring.md`)
+- [ ] Rate limiting on Next.js API routes (Upstash Redis or Vercel middleware)
+- [ ] Structured error logging to `pipeline_errors` table
+
+## Phase 28 — Pre-Launch
+- [ ] Deploy privacy policy + terms of service pages
+- [ ] Publish Google OAuth app (remove testing mode)
+- [ ] Security audit: RLS policy test, API key rotation, CORS headers
+- [ ] Lighthouse audit all key pages (target 90+ performance, 100 accessibility)
+
+## Phase 29 — Distribution
+- [ ] Cold outbound sequence: 50+ GBP no-website leads identified in target metro
+- [ ] Facebook group outreach plan (see `wiki/content/outbound-scripts.md`)
+- [ ] Accountant referral program configured (20% MRR for 12 months)
+- [ ] Trade association partnership email sent
+
+## Phase 30 — Launch
+- [ ] Soft launch to 20-person warm list
+- [ ] Day 11 and Day 13 trial expiry emails live in Resend
+- [ ] Metrics dashboard: signups, trials, conversions, MRR
+- [ ] Product Hunt launch assets prepared (tagline, screenshots, video)
