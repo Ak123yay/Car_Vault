@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Car Vault: Indoor Mapping Robot
 
 Car Vault is a small indoor robot I am building so it can map a room and drive to a target point. It uses a Raspberry Pi 5, ESP32-S3, USB camera, MPU6050 IMU, and two N20 motors with encoders.
@@ -240,3 +241,6 @@ The final demo will show:
 ## Current Status
 
 The project is in the hardware design and parts-request stage. The system plan, BOM, diagrams, and CAD/STL files are included. Final measurements, calibration values, pin assignments, and PID constants will be filled in after the parts arrive and the robot is assembled.
+=======
+Design and other files here
+>>>>>>> 3b2641d0c05a3cab6f8286a40a2b6226b9d56ce6
