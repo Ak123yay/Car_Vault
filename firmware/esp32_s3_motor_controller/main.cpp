@@ -1,5 +1,3 @@
-// Car Vault ESP32-S3 motor controller bring-up skeleton
-// Status: design-stage skeleton, not production firmware.
 // Pin assignments will be filled after final wiring review and encoder voltage verification.
 
 #include <Arduino.h>
