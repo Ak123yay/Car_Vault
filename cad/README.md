@@ -1,17 +1,15 @@
 # CAD / 3D-Printed Parts
 
-This folder has the first version of the 3D-printed chassis and front skid/support.
+This folder has the first 3D-print files for the robot chassis and front skid.
 
 ## Files
 
 | File | Purpose |
 | --- | --- |
-| `chassis_base.stl` | Printable first-pass base plate model. |
-| `front_skid.stl` | Printable passive front skid/support model. |
+| `chassis_base.stl` | First printable base plate. |
+| `front_skid.stl` | Printable front skid/support. |
 
-## Mechanical Goals
-
-The chassis needs space for:
+## What The Chassis Needs To Hold
 
 - Raspberry Pi 5
 - ESP32-S3 DevKitC-1
@@ -19,11 +17,11 @@ The chassis needs space for:
 - USB camera mount
 - MPU6050 near the center
 - Two N20 encoder motors
-- Separate 4xAA motor battery holder
-- 3D-printed passive front skid/support
+- 4xAA motor battery holder
+- 3D-printed front skid/support
 
 ## Notes
 
-- No acrylic sheet is requested because the base plate is 3D printed.
-- No ball caster is requested because the front skid/support is 3D printed.
-- The STL files are a first version. They should be adjusted after the real motor brackets, board standoffs, wheels, and camera mount are measured.
+- I am not asking for acrylic sheet because I can print the base.
+- I am not asking for a ball caster because I can print the front skid.
+- These STL files are the first version. I may need to adjust them after measuring the real motors, brackets, wheels, and camera mount.

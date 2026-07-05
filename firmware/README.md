@@ -1,34 +1,34 @@
 # Firmware Plan
 
-This folder has the ESP32-S3 low-level control plan.
+This folder has the ESP32-S3 motor-control plan.
 
 ## ESP32-S3 Jobs
 
-The ESP32-S3 will handle:
+The ESP32-S3 will:
 
-- Left and right motor encoder reading
-- Motor PWM output
-- Motor direction output
-- Wheel-speed PID control
-- Watchdog stop if commands get stale
-- Stop command handling
-- Telemetry/debug output
-- USB serial communication with the Raspberry Pi 5
+- Read the left and right motor encoders
+- Send PWM to the motors
+- Control motor direction
+- Run wheel-speed PID
+- Stop the motors if commands get stale
+- Handle stop commands
+- Send debug data back
+- Talk to the Raspberry Pi 5 over USB serial
 
 ## Safety Requirements
 
 The firmware must stop the motors if:
 
-- A `STOP` command is received.
-- Serial commands stop arriving.
-- A command duration expires.
+- It gets a `STOP` command.
+- Serial commands stop coming in.
+- A command runs out of time.
 - A motor fault is detected.
-- A command is above the safe speed limit.
+- A speed command is too high.
 
 ## Logic-Level Requirement
 
-The ESP32-S3 uses 3.3V GPIO. Encoder signals must be verified as 3.3V-safe or routed through a logic-level shifter before connecting to ESP32-S3 pins.
+The ESP32-S3 uses 3.3V GPIO. If an encoder signal is 5V, it needs to go through a logic-level shifter before connecting to the ESP32-S3.
 
 ## Included Source
 
-`esp32_s3_motor_controller/main.cpp` is only a bring-up skeleton. Final pin assignments, PID constants, and speed limits must be filled in after the real wiring and measurements are done.
+`esp32_s3_motor_controller/main.cpp` is only a starter file. Final pin numbers, PID values, and speed limits need to be filled in after the real wiring and measurements are done.

@@ -6,6 +6,19 @@ Entries before `2026-06-18 - Car Vault robotics planning compile` are legacy Ona
 
 ## 2026-07-05
 
+### Public submission wording made more student-like
+
+**Files affected**: `README.md`, `SELECTED_PARTS.md`, `SUBMISSION_SUMMARY.md`, `assets/demo-plan.md`, `cad/README.md`, `firmware/README.md`, `software/README.md`, `pcb/README.md`, `logs/code-changes.md`
+
+**What changed**:
+- Made the public submission wording more clearly sound like a student wrote it.
+- Replaced more formal phrases with shorter first-person explanations.
+- Kept the technical parts, safety rules, and funding subtotal unchanged.
+
+**Why**: User said the first pass still sounded too polished and asked for an 8th-grade voice.
+
+---
+
 ### Public submission wording simplified
 
 **Files affected**: `README.md`, `SELECTED_PARTS.md`, `SUBMISSION_SUMMARY.md`, `SUBMISSION_VALIDATION.md`, `BOM.csv`, `assets/*`, `cad/README.md`, `firmware/README.md`, `software/README.md`, `pcb/README.md`, `Vault/README.md`, `TASKS.md`, `logs/code-changes.md`
