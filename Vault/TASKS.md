@@ -6,6 +6,7 @@ This file is the source of truth for current robotics work.
 
 ## Done
 
+- [x] Simplify the public Stardance/Outpost submission docs so they sound more natural and student-written.
 - [x] Replace prior vault context with Tier 3 robotics planning scope.
 - [x] Compile raw planning input into engineering wiki documents.
 - [x] Define the minimum planning document set: system architecture, hardware design, navigation, and control.

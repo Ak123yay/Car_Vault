@@ -4,6 +4,23 @@
 
 Entries before `2026-06-18 - Car Vault robotics planning compile` are legacy Onara/SaaS history. Keep them for recoverability only. Do not use those older entries for current Car Vault robotics decisions.
 
+## 2026-07-05
+
+### Public submission wording simplified
+
+**Files affected**: `README.md`, `SELECTED_PARTS.md`, `SUBMISSION_SUMMARY.md`, `SUBMISSION_VALIDATION.md`, `BOM.csv`, `assets/*`, `cad/README.md`, `firmware/README.md`, `software/README.md`, `pcb/README.md`, `Vault/README.md`, `TASKS.md`, `logs/code-changes.md`
+
+**What changed**:
+- Rewrote the public submission docs in simpler, more natural student-style wording.
+- Kept the technical plan intact while making the wording less stiff and easier to read.
+- Replaced broken encoded diagram characters with plain ASCII diagrams.
+- Updated the visible funding subtotal to match the current requested items in `BOM.csv`: `$151.59`.
+- Recorded the wording pass in `TASKS.md`.
+
+**Why**: User asked to humanize the submission and make it sound like it was created by an 8th grader.
+
+---
+
 ## 2026-05-15
 
 ### Phase 1 marked complete + hooks paths fixed
