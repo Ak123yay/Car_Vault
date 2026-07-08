@@ -1,8 +1,4 @@
-# Raspberry Pi Software Plan
-
-This folder has the Raspberry Pi 5 software plan for Car Vault.
-
-## Raspberry Pi 5 Jobs
+# This folder is meant to have all software running on the RPI 5
 
 The Raspberry Pi 5 will:
 

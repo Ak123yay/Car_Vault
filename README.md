@@ -1,6 +1,6 @@
 # Car Vault: Indoor Mapping Robot
 
-Car Vault is a small indoor robot I am building. I want it to drive around inside, make a basic map, and move to a target point without me controlling it the whole time.
+Car Vault is a small indoor robot I want to work on. I want it to drive around inside, make a basic map, and move to a target point without me controlling it the whole time. I want it to act just like Tesla autopilot, so this car is only vision based :) . 
 
 It uses a Raspberry Pi 5, ESP32-S3, USB camera, MPU6050 IMU, and two N20 motors with encoders.
 
@@ -8,13 +8,13 @@ It uses a Raspberry Pi 5, ESP32-S3, USB camera, MPU6050 IMU, and two N20 motors 
 
 ## Project Summary
 
-This is not just a remote-control car. I am trying to build something closer to a real robot, but still small enough for me to actually make and test.
+I am trying to build something closer to a real robot, but still small enough for me to actually make and test.
 
 The Raspberry Pi 5 does the bigger jobs. It handles the camera, SLAM testing, mapping, path planning, and deciding where the robot should go.
 
 The ESP32-S3 does the motor jobs. It reads the wheel encoders, controls the motors, runs PID, stops the motors if something goes wrong, and sends data back to the Pi.
 
-Basic flow:
+This is what happens:
 
 ```text
 Camera + IMU + Wheel Encoders
@@ -23,7 +23,7 @@ Camera + IMU + Wheel Encoders
     Position Estimate
           |
           v
-       Map
+         Map
           |
           v
      A* Path
@@ -37,7 +37,7 @@ Camera + IMU + Wheel Encoders
 
 ## Why I Am Building This
 
-I am building this because I want to learn how autonomous robots actually work. A lot of starter robot cars only drive with a remote or avoid obstacles with one sensor. I wanted to try something harder.
+I am building this because I want to learn how autonomous robots and vehicles actually work. A lot of  robot cars only drive with a remote or avoid obstacles with one sensor. I wanted to try something harder and something that challenges me by making me reach into a field that I dont really have too much experience in. 
 
 This project helps me learn:
 
@@ -53,7 +53,7 @@ This project helps me learn:
 
 ## What I Want The Robot To Do
 
-The final robot should be able to:
+the final robot should be able to:
 
 1. Drive indoors with two powered N20 motors.
 2. Read wheel encoder data.
@@ -124,12 +124,14 @@ The ESP32-S3 uses 3.3V GPIO. If the encoder signals are 5V, I need a logic-level
 
 ## 3D-Printed Parts
 
-I am not buying an acrylic chassis or a ball caster. I am making the base and front support with 3D printing.
+I am making the base and front support with 3D printing because I have a 3d printer at home with enough filament. 
 
 Included CAD files:
 
 - `cad/chassis_base.stl` - first base plate model
 - `cad/front_skid.stl` - front skid/support model
+
+I probably have to make this better, but because I dont have exact dimensions for the parts, it's hard for me to judge. 
 
 ![Chassis sketch](assets/chassis-sketch.png)
 
@@ -225,20 +227,8 @@ Funding will help buy:
 - D-hole N20 wheels
 - Raspberry Pi 5 mobile UPS/battery parts
 
+These parts could also be recycled for other projects i make!
+
 Estimated requested funding subtotal in `BOM.csv`: **$151.59**.
 
-## Demo Plan
-
-The final demo will show:
-
-1. The robot layout and 3D-printed chassis.
-2. The separate Pi and motor power wiring.
-3. The motors and encoders working.
-4. The IMU and USB camera working.
-5. The robot driving with PID feedback.
-6. A simple map or path-planning output.
-7. The robot moving toward a target point.
-
-## Current Status
-
-Right now the project is in the parts-request and hardware design stage. The plan, BOM, diagrams, and 3D-print files are included. After the parts arrive, I will measure the real robot and fill in the final pin numbers, calibration values, and PID values.
+## Sorry for making you read so much!
