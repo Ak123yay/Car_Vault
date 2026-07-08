@@ -1,0 +1,8 @@
+numpy>=1.24
+opencv-python>=4.8
+pyserial>=3.5
+
+# optional later on raspberry pi / ai hat:
+# hailo-all
+# picamera2
+# orbslam3 bindings or ros2 packages

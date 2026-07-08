@@ -23,6 +23,3 @@ control/       movement commands to ESP32-S3
 robot_config/  real measurements after hardware bring-up
 ```
 
-## Important Rule
-
-I should not guess final robot values. Wheel diameter, wheelbase, encoder ticks, camera FPS, IMU direction, and PID values need to be measured or tested first.
