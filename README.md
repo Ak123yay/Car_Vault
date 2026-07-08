@@ -1,6 +1,6 @@
-# Car Vault: Indoor Mapping Robot
+# SLAM Car
 
-Car Vault is a small indoor robot I want to work on. I want it to drive around inside, make a basic map, and move to a target point without me controlling it the whole time. I want it to act just like Tesla autopilot, so this car is only vision based :) . 
+SLAM Car is a small indoor robot I want to work on. I want it to drive around inside, make a basic map, and move to a target point without me controlling it the whole time. I want it to act just like Tesla autopilot, so this car is only vision based :) . 
 
 It uses a Raspberry Pi 5, ESP32-S3, USB camera, MPU6050 IMU, and two N20 motors with encoders.
 
