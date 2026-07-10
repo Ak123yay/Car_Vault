@@ -7,9 +7,10 @@ It uses a Raspberry Pi 5, ESP32-S3, USB camera, MPU6050 IMU, and two N20 motors 
 ![System diagram](assets/system-diagram.png)
 
 
-These are all the cadded parts needed:
+These are all the parts needed:
 
-<img width="1187" height="472" alt="image" src="https://github.com/user-attachments/assets/4cba44f9-f6a0-4052-b620-78df9859efaa" />
+<img width="1197" height="640" alt="image" src="https://github.com/user-attachments/assets/e1699cf3-b244-49b7-8600-1fba3658ad8e" />
+
 
 ## Project Summary
 
